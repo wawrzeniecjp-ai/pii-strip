@@ -402,10 +402,17 @@ CV content:
             format=PIIResponse.model_json_schema(),
             options={
                 "temperature": 0,
-                "num_predict": 4096,   # Allow longer JSON output
-                "num_ctx": 8192,       # Match context to your longest CVs
-            },
+                "num_predict": 8192,
+                "num_ctx": 16384,
+                "stop": ["<|im_end|>", "<|endoftext|>", "<|im_start|>"],
+                "repeat_penalty": 1.2,      # 1.1 by default
+                "repeat_last_n": 128,       # look back further
+            }
         )
+        print(f"done_reason: {response.done_reason}, eval_count: {response.eval_count}")
+        print("---------------------- LLM OUTPOUT -----------------------")
+        print(response.message.content)
+        print("----------------------------------------------------------")
         parsed = PIIResponse.model_validate_json(response.message.content)
 
         entities: List[PIIEntity] = []
