@@ -4,6 +4,8 @@
     in the original text.
 """
 
+from typing import Optional
+
 from typing import List
 from .base import PIIMasker
 from cv_pii.data import PIIEntity
@@ -12,6 +14,9 @@ from cv_pii.log import get_logger
 log = get_logger(__name__)
 
 class OffsetMasker(PIIMasker):
+    def __init__(self, model: Optional[str] = None):
+        self.model = model  # unused; kept for interface symmetry
+
     """Use entity.start / entity.end. Fast, precise, requires accurate offsets."""
     def mask(self, text: str, entities: List[PIIEntity]) -> str:
         """

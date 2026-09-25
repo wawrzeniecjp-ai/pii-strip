@@ -4,6 +4,8 @@
     searches the original text to find entities to be masked.
 """
 
+from typing import Optional
+
 from typing import List
 from .base import PIIMasker
 from cv_pii.data import PIIEntity
@@ -12,7 +14,8 @@ from cv_pii.log import get_logger
 log = get_logger(__name__)
 
 class TextSearchMasker(PIIMasker):
-    def __init__(self, replace_all: bool = True):
+    def __init__(self, model: Optional[str] = None, replace_all: bool = True):
+        self.model = model  # unused
         self.replace_all = replace_all
 
     def mask(self, text: str, entities: List[PIIEntity]) -> str:
