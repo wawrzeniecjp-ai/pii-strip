@@ -154,7 +154,7 @@ CV content:
 class LLMIdentifier(PIIIdentifier):
     def __init__(
         self,
-        model: str = "gemma3:4b",
+        model: str = "gemma4:12b",
         threshold: float = 0.5,
         exclude_types: Optional[set] = None,
     ):
